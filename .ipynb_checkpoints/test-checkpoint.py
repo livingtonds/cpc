@@ -24,5 +24,5 @@ if __name__ == "__main__":
                  df_path=DF_PATH
     )
     
-    result = inference_wrapper.get_res_by_two_images(img_1, img_2)
+    result = inference_wrapper.get_res_by_two_images(img_1, img_2, k=10)
     print(result)

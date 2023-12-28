@@ -17,14 +17,14 @@ class InferenceWrapper():
         self.annoy_db.load(vectore_storage_path=vectore_storage_path,
                            df_path=df_path)
         
-    def get_res_by_two_images(self, img_1, img_2):
+    def get_res_by_two_images(self, img_1, img_2, k=2):
         responce = {
             "generated_caption": "",
             "res_dict_from_bd": {}
         }
         concated_images = concat_two_images(img_1, img_2)
         embeding, generated_caption = self.model_embd.get_embd_n_text(concated_images)
-        res_dict_from_bd = self.annoy_db.get_data_by_vector(embeding)
+        res_dict_from_bd = self.annoy_db.get_data_by_vector(embeding, k=k)
         
         responce["generated_caption"] = generated_caption
         responce["res_dict_from_bd"] = res_dict_from_bd

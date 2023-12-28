@@ -32,8 +32,8 @@ class AnnoyDB():
         self.vectore_storage.load(vectore_storage_path)
         self.df = pd.read_csv(df_path)
         
-    def get_data_by_vector(self, embeding):
-        ni = self.vectore_storage.get_nns_by_vector(embeding, 1)[0]
-        res_dict = self.df.iloc[ni].to_dict()
+    def get_data_by_vector(self, embeding, k=2):
+        ni = self.vectore_storage.get_nns_by_vector(embeding, k)#[0]
+        res_dict = self.df.iloc[ni].to_dict(orient="list")
         
         return res_dict
