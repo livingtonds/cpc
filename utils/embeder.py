@@ -29,3 +29,16 @@ class ModelEmbed():
         generated_caption = self.processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
         return embding, generated_caption
+
+class ModelEmbedSimple():
+    def __init__(self, model, processor, device="cuda"):
+        self.processor = processor
+        self.model = model
+        self.device = device
+        
+    def get_embd(self, img):
+        inputs = self.processor(images=Image.fromarray(img), return_tensors="pt").to(self.device)
+        embding = self.model(transforms(img).unsqueeze(0)).detach().cpu().numpy()[0]
+        embding /= np.linalg.norm(embding)
+
+        return embding
